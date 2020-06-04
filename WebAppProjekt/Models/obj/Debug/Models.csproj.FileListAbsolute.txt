@@ -1,0 +1,9 @@
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\bin\Debug\Models.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\bin\Debug\Models.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\obj\Debug\Models.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\obj\Debug\Models.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\bin\Debug\Models.Common.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\bin\Debug\Models.Common.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models\obj\Debug\Models.csproj.CopyComplete
