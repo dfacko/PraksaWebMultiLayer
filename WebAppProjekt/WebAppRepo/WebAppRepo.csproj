@@ -41,12 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OsobaAddRepo.cs" />
-    <Compile Include="OsobaDeleteRepo.cs" />
-    <Compile Include="OsobaEditRepo.cs" />
-    <Compile Include="OsobaReadRepo.cs" />
-    <Compile Include="OsobaToJobRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebAppRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

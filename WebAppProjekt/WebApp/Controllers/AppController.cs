@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Management;
 using AutoMapper;
 using Models;
+using WebAppRepo;
 using WebAppService;
 
 namespace WebApp.Controllers
@@ -21,20 +23,15 @@ namespace WebApp.Controllers
              List<OsobaRest> popis = new List<OsobaRest>() { };
              List<Osoba> listFromDb = new List<Osoba>() { };
 
-            OsobaReadService person = new OsobaReadService();
+            WebAppServices person = new WebAppServices();
              listFromDb=person.Read();
 
-            /*var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Osoba, OsobaRest>();
-            }); 
 
-            IMapper iMapper = config.CreateMapper();
-            var source = new Osoba();
-            var destination = iMapper.Map<AuthorModel, AuthorDTO>(source);*/
 
             foreach (var osoba in listFromDb) {
-                popis.Add(new OsobaRest(osoba.Name, osoba.Surname, osoba.Age));
-
+                OsobaRest osobaRest = new OsobaRest(osoba.Name, osoba.Surname, osoba.Age);
+                osobaRest.Job = person.InsertJob(osoba.Posao_id);
+                popis.Add(osobaRest);
 			    }
 
                 return Ok(popis);
@@ -54,7 +51,7 @@ namespace WebApp.Controllers
 
 
 
-            OsobaAddService newPerson = new OsobaAddService();
+            WebAppServices newPerson = new WebAppServices();
 
             Osoba ToAdd = new Osoba(person.Name, person.Surname, person.Age);
             newPerson.Add(ToAdd);
@@ -68,7 +65,7 @@ namespace WebApp.Controllers
             public IHttpActionResult AddPersonToJob(int personId,int jobId)
             {
 
-            OsobaToJobService person = new OsobaToJobService();
+            WebAppServices person = new WebAppServices();
             int status=person.AddToJob(personId, jobId);
             if(status == 1) {
                 return Ok();
@@ -85,7 +82,7 @@ namespace WebApp.Controllers
             {
 
             
-            OsobaEditService person = new OsobaEditService();
+            WebAppServices person = new WebAppServices();
             int  status = person.Edit(id, newName,newSurname,newAge);
             
 
@@ -103,7 +100,7 @@ namespace WebApp.Controllers
             [HttpDelete]
             public IHttpActionResult Delete([FromBody]int id)
             {
-            OsobaDeleteService person = new OsobaDeleteService();
+            WebAppServices person = new WebAppServices();
 
             int status=person.Delete(id);
 

@@ -118,6 +118,10 @@
       <Project>{B508864D-14B3-4DC0-BE36-4314F17A00EF}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebAppRepo\WebAppRepo.csproj">
+      <Project>{90962FBC-A0D5-4F35-B22D-9AF8D78B8B40}</Project>
+      <Name>WebAppRepo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAppService\WebAppService.csproj">
       <Project>{F6A86394-63AB-49FA-9A14-8E4315CD6FBC}</Project>
       <Name>WebAppService</Name>

@@ -41,12 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OsobaAddService.cs" />
-    <Compile Include="OsobaDeleteService.cs" />
-    <Compile Include="OsobaEditService.cs" />
-    <Compile Include="OsobaReadService.cs" />
-    <Compile Include="OsobaToJobService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebAppServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
