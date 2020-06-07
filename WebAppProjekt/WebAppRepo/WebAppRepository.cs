@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models;
 using WebAppRepo.Common;
 
@@ -38,7 +34,7 @@ namespace WebAppRepo {
                 reader.Close();
 
                 string queryString =
-                $"Insert into Osoba values ({Id},-1,{age},'{name}','{surname}');";  
+                $"Insert into Osoba values ({Id},-1,{age},'{name}','{surname}');";  //po defaultu svaka nova osoba ima job_id=-1 kao nezaposlena osoba
                 SqlDataAdapter adapter = new SqlDataAdapter(queryString, connection);
                 DataSet newPerson = new DataSet();  
                 adapter.Fill(newPerson, "Osoba");

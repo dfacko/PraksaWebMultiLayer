@@ -16,7 +16,7 @@ namespace Models
 		public string Surname { get; set; }
 
 
-		public  Osoba(string name,string prezime,int age)
+		public  Osoba(string name="",string prezime="",int age=-1)
 		{
 			this.Name = name;
 			this.Age = age;

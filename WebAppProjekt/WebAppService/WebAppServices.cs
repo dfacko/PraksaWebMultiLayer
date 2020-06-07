@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Models;
 using WebAppRepo;
 
 namespace WebAppService {
-		public class WebAppServices {
+	public class WebAppServices {
 		public void Add (Osoba person){
 
 		
@@ -31,7 +27,7 @@ namespace WebAppService {
 			return 0;
 		}
 
-		public int Edit(int Id,string newName,string newSurname,int newAge) {
+		public int Edit(int Id,string newName,string newSurname,int newAge) { //edits person with a given id
 
 
 			WebAppRepository person = new WebAppRepository();
@@ -63,7 +59,7 @@ namespace WebAppService {
 		}
 
 
-		public int AddToJob(int personid,int jobId) {
+		public int AddToJob(int personid,int jobId) { // adds a person to a job
 
 			WebAppRepository person = new WebAppRepository();
 			if (person.IDIsInDatabase(personid, jobId)) {  // provejra ako postoji posao koji se zeli dodat i korisnik koji se zeli dodat da radi taj posao

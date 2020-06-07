@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Management;
 using AutoMapper;
 using Models;
-using WebAppRepo;
 using WebAppService;
 
-namespace WebApp.Controllers
-{
-    public class AppController : ApiController
+namespace WebApp.Controllers {
+	public class AppController : ApiController
     {
 
 
@@ -23,16 +16,30 @@ namespace WebApp.Controllers
              List<OsobaRest> popis = new List<OsobaRest>() { };
              List<Osoba> listFromDb = new List<Osoba>() { };
 
+
             WebAppServices person = new WebAppServices();
              listFromDb=person.Read();
 
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Osoba, OsobaRest>();
+            });
 
 
-            foreach (var osoba in listFromDb) {
+            IMapper iMapper = config.CreateMapper();
+
+            foreach (Osoba osoba in listFromDb)
+            {
+                OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
+                osobaRest.Job = person.InsertJob(osoba.Posao_id);
+                popis.Add(osobaRest);
+            }
+
+
+            /*foreach (var osoba in listFromDb) {
                 OsobaRest osobaRest = new OsobaRest(osoba.Name, osoba.Surname, osoba.Age);
                 osobaRest.Job = person.InsertJob(osoba.Posao_id);
                 popis.Add(osobaRest);
-			    }
+			    }*/
 
                 return Ok(popis);
 			}
@@ -49,12 +56,22 @@ namespace WebApp.Controllers
                 return BadRequest();
                 }
 
-
-
             WebAppServices newPerson = new WebAppServices();
 
-            Osoba ToAdd = new Osoba(person.Name, person.Surname, person.Age);
-            newPerson.Add(ToAdd);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<OsobaRest, Osoba>();
+            });
+
+
+            IMapper iMapper = config.CreateMapper();
+
+
+            Osoba osoba = iMapper.Map<OsobaRest, Osoba>(person);
+            
+
+            //Osoba PersonToAdd = new Osoba(person.Name, person.Surname, person.Age);
+
+            newPerson.Add(osoba);
 
             
                    

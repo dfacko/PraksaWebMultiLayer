@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Models.Common;
+﻿using Models.Common;
 
 namespace WebApp {
 	public class OsobaRest : IOsoba {
@@ -14,7 +10,7 @@ namespace WebApp {
 		public string Job { get; set; }
 
 
-		public  OsobaRest(string name,string prezime,int age)
+		public  OsobaRest(string name="",string prezime="",int age=-1)
 		{
 			this.Name = name;
 			this.Age = age;
