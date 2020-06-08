@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Models;
 using WebAppRepo.Common;
 
@@ -8,7 +9,7 @@ namespace WebAppRepo {
 	public class WebAppRepository :IRepo {
 
 		
-		public void Add(Osoba person) {
+		public  async Task AddAsync(Osoba person) {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 			string name = person.Name;
             string surname = person.Surname;
@@ -49,7 +50,7 @@ namespace WebAppRepo {
 
 		}
 
-		public string GetJobDesc(int posao_id) {
+		public async Task<string> GetJobDescAsync(int posao_id) {
 			 SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             string JobDesc="";
 
@@ -77,7 +78,7 @@ namespace WebAppRepo {
             return JobDesc;
 		}
 
-		public  List<Osoba> HasRows() {
+		public async Task<List<Osoba>> HasRowsAsync() {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             List<Osoba> popis = new List<Osoba>();
             string name = "",
@@ -95,8 +96,9 @@ namespace WebAppRepo {
                 connection.Open();
 
                 SqlDataReader reader = command.ExecuteReader();
-
+                
                 if (reader.HasRows) {
+  
                     while (reader.Read()) {
 
                         name = reader.GetString(0);
@@ -108,11 +110,12 @@ namespace WebAppRepo {
                         person.Id = id;
                         person.Posao_id = posao_id;
                         popis.Add(person);
-                        
+
                     }
-                } else {
                     
-                }
+                } 
+                    
+                
                 reader.Close();
                 connection.Close();
             }
@@ -121,7 +124,7 @@ namespace WebAppRepo {
             return popis;
         }
 
-        public void Delete(int Id) {
+        public async Task DeleteAsync(int Id) {
 			SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 			using (connection) {     
 
@@ -140,7 +143,7 @@ namespace WebAppRepo {
 
 		}
 
-        public void Edit(int Id,string newName,string newSurname,int newAge) {
+        public async Task EditAsync(int Id,string newName,string newSurname,int newAge) {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             string queryString;
 			using (connection) {
@@ -175,7 +178,7 @@ namespace WebAppRepo {
 
         }
 
-        public void AddToJob(int personid, int jobId) {
+        public async Task AddToJobAsync(int personid, int jobId) {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             string queryString;
 			using (connection) {

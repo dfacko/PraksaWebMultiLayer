@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Models;
@@ -11,36 +12,40 @@ namespace WebApp.Controllers {
 
         // GET: api/App
             [HttpGet]
-            public IHttpActionResult OsobeRead()
+            public async Task<IHttpActionResult> OsobeReadAsync()
             {
+
              List<OsobaRest> popis = new List<OsobaRest>() { };
-             List<Osoba> listFromDb = new List<Osoba>() { };
+             List<Osoba> listFromDb = new List<Osoba>();
+             List<Task> tasks = new List<Task>();
+            
 
 
             WebAppServices person = new WebAppServices();
-             listFromDb=person.Read();
+            AsyncHelp Help = new AsyncHelp();
 
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Osoba, OsobaRest>();
-            });
+             listFromDb = await person.ReadAsync();
 
-
-            IMapper iMapper = config.CreateMapper();
 
             foreach (Osoba osoba in listFromDb)
             {
-                OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
-                osobaRest.Job = person.InsertJob(osoba.Posao_id);
-                popis.Add(osobaRest);
+
+                tasks.Add(Task.Run(async ()=>popis.Add(await Help.HelpAsync(osoba))));  
+
+                /*
+                OsobaRest osobaRest = IMapper.Map<Osoba, OsobaRest>(osoba);   
+				OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
+                osobaRest.Job = await person.InsertJobAsync(osoba.Posao_id);
+				popis.Add(osobaRest);
+                */
+                // mislim da bi se moglo dodat u jedan taskList sve ovo unutar foreach tako da se ne ceka da se doda u popis jedna osoba, pa onda druga,
+                // nego da je samo dodavanje osobe jedan task a mi samo  pokrecemo taskove za svaku osobu iz pocetne liste, tako ce se osobe brze dodavat tj kao paralelno
+
+                popis.Add( await Help.HelpAsync(osoba));                                    
             }
 
 
-            /*foreach (var osoba in listFromDb) {
-                OsobaRest osobaRest = new OsobaRest(osoba.Name, osoba.Surname, osoba.Age);
-                osobaRest.Job = person.InsertJob(osoba.Posao_id);
-                popis.Add(osobaRest);
-			    }*/
-
+                Task.WaitAll(tasks.ToArray());
                 return Ok(popis);
 			}
             
@@ -49,7 +54,7 @@ namespace WebApp.Controllers {
      
             
             [HttpPost]
-            public IHttpActionResult InsertPerson([FromBody] OsobaRest person)
+            public async Task<IHttpActionResult> InsertPersonAsync([FromBody] OsobaRest person)
             {
            
             if (person == null) {
@@ -71,7 +76,7 @@ namespace WebApp.Controllers {
 
             //Osoba PersonToAdd = new Osoba(person.Name, person.Surname, person.Age);
 
-            newPerson.Add(osoba);
+            await newPerson.AddAsync(osoba);
 
             
                    
@@ -79,11 +84,11 @@ namespace WebApp.Controllers {
             }
 
          [HttpPost]
-            public IHttpActionResult AddPersonToJob(int personId,int jobId)
+            public async Task<IHttpActionResult> AddPersonToJobAsync(int personId,int jobId)
             {
 
             WebAppServices person = new WebAppServices();
-            int status=person.AddToJob(personId, jobId);
+            int status=await person.AddToJobAsync(personId, jobId);
             if(status == 1) {
                 return Ok();
 			}
@@ -95,12 +100,12 @@ namespace WebApp.Controllers {
             
 
             [HttpPut]
-            public IHttpActionResult Put(int id=0,string newName="",string newSurname="",int newAge=-1)
+            public async Task<IHttpActionResult> PutAsync(int id=0,string newName="",string newSurname="",int newAge=-1)
             {
 
             
             WebAppServices person = new WebAppServices();
-            int  status = person.Edit(id, newName,newSurname,newAge);
+            int  status = await person.EditAsync(id, newName,newSurname,newAge);
             
 
             if (status==0) { 
@@ -115,11 +120,11 @@ namespace WebApp.Controllers {
         
             
             [HttpDelete]
-            public IHttpActionResult Delete([FromBody]int id)
+            public async Task<IHttpActionResult> DeleteAsync([FromBody]int id)
             {
             WebAppServices person = new WebAppServices();
 
-            int status=person.Delete(id);
+            int status= await person.DeleteAsync(id);
 
             if (status==0) { 
                 return NotFound(); 

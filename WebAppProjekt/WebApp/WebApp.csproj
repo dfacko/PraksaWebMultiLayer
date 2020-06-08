@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AsyncHelp.cs" />
     <Compile Include="JobRest.cs" />
     <Compile Include="OsobaRest.cs" />
     <Compile Include="Controllers\AppController.cs" />
