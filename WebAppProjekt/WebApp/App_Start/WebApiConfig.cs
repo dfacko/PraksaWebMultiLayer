@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Autofac;
+using WebApp.Controllers;
+using WebAppRepo;
+using WebAppRepo.Common;
+using WebAppService;
+using WebAppService.Common;
 
 namespace WebApp
 {
@@ -19,6 +25,8 @@ namespace WebApp
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+             
         }
     }
 }

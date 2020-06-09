@@ -4,14 +4,31 @@ using System.Web.Http;
 using AutoMapper;
 using Models;
 using WebAppService;
+using WebAppService.Common;
 
 namespace WebApp.Controllers {
 	public class AppController : ApiController
     {
 
 
-        // GET: api/App
-            [HttpGet]
+		protected IWebAppService Service { get; private set; }
+
+
+        public  AppController(IWebAppService service)
+        {
+            this.Service = service;
+        }
+		
+
+        
+
+
+        
+
+       
+
+		// GET: api/App
+		[HttpGet]
             public async Task<IHttpActionResult> OsobeReadAsync()
             {
 
@@ -21,27 +38,18 @@ namespace WebApp.Controllers {
             
 
 
-            WebAppServices person = new WebAppServices();
-            AsyncHelp Help = new AsyncHelp();
+            //WebAppServices person = new WebAppServices();
 
-             listFromDb = await person.ReadAsync();
+
+             listFromDb = await Service.ReadAsync();
 
 
             foreach (Osoba osoba in listFromDb)
             {
 
-                tasks.Add(Task.Run(async ()=>popis.Add(await Help.HelpAsync(osoba))));  
+                tasks.Add(Task.Run(async ()=>popis.Add(await HelpAsync(osoba))));  
 
-                /*
-                OsobaRest osobaRest = IMapper.Map<Osoba, OsobaRest>(osoba);   
-				OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
-                osobaRest.Job = await person.InsertJobAsync(osoba.Posao_id);
-				popis.Add(osobaRest);
-                */
-                // mislim da bi se moglo dodat u jedan taskList sve ovo unutar foreach tako da se ne ceka da se doda u popis jedna osoba, pa onda druga,
-                // nego da je samo dodavanje osobe jedan task a mi samo  pokrecemo taskove za svaku osobu iz pocetne liste, tako ce se osobe brze dodavat tj kao paralelno
-
-                popis.Add( await Help.HelpAsync(osoba));                                    
+                                 
             }
 
 
@@ -61,7 +69,7 @@ namespace WebApp.Controllers {
                 return BadRequest();
                 }
 
-            WebAppServices newPerson = new WebAppServices();
+            
 
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<OsobaRest, Osoba>();
@@ -76,7 +84,7 @@ namespace WebApp.Controllers {
 
             //Osoba PersonToAdd = new Osoba(person.Name, person.Surname, person.Age);
 
-            await newPerson.AddAsync(osoba);
+            await Service.AddAsync(osoba);
 
             
                    
@@ -87,8 +95,8 @@ namespace WebApp.Controllers {
             public async Task<IHttpActionResult> AddPersonToJobAsync(int personId,int jobId)
             {
 
-            WebAppServices person = new WebAppServices();
-            int status=await person.AddToJobAsync(personId, jobId);
+            
+            int status=await Service.AddToJobAsync(personId, jobId);
             if(status == 1) {
                 return Ok();
 			}
@@ -104,8 +112,8 @@ namespace WebApp.Controllers {
             {
 
             
-            WebAppServices person = new WebAppServices();
-            int  status = await person.EditAsync(id, newName,newSurname,newAge);
+            
+            int  status = await Service.EditAsync(id, newName,newSurname,newAge);
             
 
             if (status==0) { 
@@ -122,9 +130,9 @@ namespace WebApp.Controllers {
             [HttpDelete]
             public async Task<IHttpActionResult> DeleteAsync([FromBody]int id)
             {
-            WebAppServices person = new WebAppServices();
+            
 
-            int status= await person.DeleteAsync(id);
+            int status= await Service.DeleteAsync(id);
 
             if (status==0) { 
                 return NotFound(); 
@@ -133,6 +141,24 @@ namespace WebApp.Controllers {
                 return Ok();
 
             }
+        public async Task<OsobaRest> HelpAsync(Osoba osoba) {
+
+			
+
+			var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Osoba, OsobaRest>();
+            });
+
+            
+            IMapper iMapper = config.CreateMapper();
+
+				//OsobaRest osobaRest = IMapper.Map<Osoba, OsobaRest>(osoba);   
+				OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
+                osobaRest.Job = await Service.InsertJobAsync(osoba.Posao_id);
+				//popis.Add(osobaRest);
+
+			return osobaRest;
+		}
                 
             
     }

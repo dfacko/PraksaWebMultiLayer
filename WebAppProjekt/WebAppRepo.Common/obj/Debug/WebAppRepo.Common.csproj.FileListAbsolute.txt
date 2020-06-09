@@ -4,3 +4,8 @@ C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\W
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csproj.CoreCompileInputs.cache
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.dll
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.Common.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.Common.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csproj.CopyComplete

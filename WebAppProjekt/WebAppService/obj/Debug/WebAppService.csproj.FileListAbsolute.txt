@@ -13,3 +13,5 @@ C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\Model
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\Models.Common.pdb
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\WebAppRepo.Common.dll
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\WebAppRepo.Common.pdb
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\WebAppService.Common.dll
+C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppService\bin\Debug\WebAppService.Common.pdb
