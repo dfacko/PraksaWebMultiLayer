@@ -7,8 +7,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
+using Models;
 using WebApp.Controllers;
 using WebAppRepo;
 using WebAppRepo.Common;
@@ -23,12 +26,19 @@ namespace WebApp
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<WebAppServices>().As<IWebAppService>();
-            containerBuilder.RegisterType<WebAppRepository>().As<IRepo>();
-            containerBuilder.RegisterType<AppController>();
-            //containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<WebAppServiceModule>();
+            containerBuilder.RegisterModule<WebAppRepoModule>();
+            containerBuilder.RegisterType<AppController>();
+
+
+            /*containerBuilder.Register(ctx => new MapperConfiguration(cfg => {
+                cfg.CreateMap<Osoba, OsobaRest>();
+            }));
+            containerBuilder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<Mapper>();*/
+
 
             var container = containerBuilder.Build();
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container);

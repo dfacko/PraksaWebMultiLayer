@@ -12,11 +12,13 @@ namespace WebApp.Controllers {
 
 
 		protected IWebAppService Service { get; private set; }
+        protected IMapper Mapper { get; private set; }
 
 
-        public  AppController(IWebAppService service)
+        public  AppController(IWebAppService service/*,Mapper mapper*/)
         {
             this.Service = service;
+            //this.Mapper=mapper;
         }
 		
 
