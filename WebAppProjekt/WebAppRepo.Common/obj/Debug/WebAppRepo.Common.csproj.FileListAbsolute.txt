@@ -9,3 +9,16 @@ C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\M
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.pdb
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.Common.pdb
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csproj.CopyComplete
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\WebAppRepo.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\WebAppRepo.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\Models.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csprojAssemblyReference.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csproj.CoreCompileInputs.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.csproj.CopyComplete
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\obj\Debug\WebAppRepo.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\WebApp.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebAppRepo.Common\bin\Debug\WebApp.Common.pdb

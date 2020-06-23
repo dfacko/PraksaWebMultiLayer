@@ -4,6 +4,7 @@ using WebAppRepo;
 using System.Threading.Tasks;
 using WebAppService.Common;
 using WebAppRepo.Common;
+using WebApp.Common;
 
 namespace WebAppService {
 	public class WebAppServices : IWebAppService{
@@ -63,12 +64,12 @@ namespace WebAppService {
 			
 		}
 
-		public async Task<List<Osoba>> ReadAsync() {
+		public async Task<List<Osoba>> ReadAsync(Filtering filter,Sorting sorter,Paging pager) {
 
 			
 			List<Osoba> popis = new List<Osoba>();
 
-			popis = await Repository.HasRowsAsync();
+			popis = await Repository.HasRowsAsync(filter,sorter,pager);
 			if (popis.Count == 0) {
 				//tu treba returnat error 
 

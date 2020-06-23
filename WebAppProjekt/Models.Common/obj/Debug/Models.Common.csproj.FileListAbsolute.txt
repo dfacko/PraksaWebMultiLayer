@@ -4,3 +4,9 @@ C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models.Common\obj\Debug\Model
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.csproj.CoreCompileInputs.cache
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.dll
 C:\Users\Yozika\Desktop\PraksaWebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\bin\Debug\Models.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\bin\Debug\Models.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.csprojAssemblyReference.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.csproj.CoreCompileInputs.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\Models.Common\obj\Debug\Models.Common.pdb

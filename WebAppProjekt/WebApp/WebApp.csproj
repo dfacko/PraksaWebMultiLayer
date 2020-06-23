@@ -164,6 +164,10 @@
       <Project>{B508864D-14B3-4DC0-BE36-4314F17A00EF}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApp.Common\WebApp.Common.csproj">
+      <Project>{53C6296E-C99F-4A04-87FF-56B2F98C28CF}</Project>
+      <Name>WebApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAppRepo.Common\WebAppRepo.Common.csproj">
       <Project>{69B30359-1FD5-4FF1-8D0B-65DEC0AAC38F}</Project>
       <Name>WebAppRepo.Common</Name>

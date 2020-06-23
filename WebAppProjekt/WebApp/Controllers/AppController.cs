@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Models;
+using WebApp.Common;
 using WebAppService;
 using WebAppService.Common;
 
@@ -31,31 +32,50 @@ namespace WebApp.Controllers {
 
 		// GET: api/App
 		[HttpGet]
-            public async Task<IHttpActionResult> OsobeReadAsync()
+            public async Task<IHttpActionResult> OsobeReadAsync(int currentPage=1,int recordsOnPage=3,string filterProperty="Name",string filterCondition ="",string sortOrder="asc",string sortProperty="Id")
             {
 
              List<OsobaRest> popis = new List<OsobaRest>() { };
              List<Osoba> listFromDb = new List<Osoba>();
              List<Task> tasks = new List<Task>();
-            
 
+            Paging paging = new Paging();
+            Filtering filter = new Filtering();
+            Sorting sort = new Sorting();
+
+            paging.CurrentPage = currentPage;
+            paging.RecordsPerPage = recordsOnPage;
+            filter.filterCondition = filterCondition;
+            filter.filterProperty = filterProperty;
+            sort.sortOrder = sortOrder;
+            sort.sortProperty = sortProperty;
 
             //WebAppServices person = new WebAppServices();
 
 
-             listFromDb = await Service.ReadAsync();
+             listFromDb = await Service.ReadAsync(filter,sort,paging);
 
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Osoba, OsobaRest>();
+            });
+
+
+            IMapper iMapper = config.CreateMapper();
+
+            
+          
 
             foreach (Osoba osoba in listFromDb)
             {
-
-                tasks.Add(Task.Run(async ()=>popis.Add(await HelpAsync(osoba))));  
+                OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
+                osobaRest.Job = await Service.InsertJobAsync(osoba.Posao_id);
+                popis.Add(osobaRest); 
 
                                  
             }
 
 
-                Task.WaitAll(tasks.ToArray());
+                //Task.WaitAll(tasks.ToArray());
                 return Ok(popis);
 			}
             
@@ -143,7 +163,7 @@ namespace WebApp.Controllers {
                 return Ok();
 
             }
-        public async Task<OsobaRest> HelpAsync(Osoba osoba) {
+        /*public async Task<OsobaRest> HelpAsync(Osoba osoba) {
 
 			
 
@@ -160,7 +180,7 @@ namespace WebApp.Controllers {
 				//popis.Add(osobaRest);
 
 			return osobaRest;
-		}
+		}*/
                 
             
     }

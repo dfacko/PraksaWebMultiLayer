@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Models;
+using WebApp.Common;
 using WebAppRepo.Common;
 
 namespace WebAppRepo {
@@ -10,8 +11,9 @@ namespace WebAppRepo {
 
 		
 		public  async Task AddAsync(Osoba person) {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-			string name = person.Name;
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
+
+            string name = person.Name;
             string surname = person.Surname;
             int age = person.Age;
             int Id=0;
@@ -35,7 +37,7 @@ namespace WebAppRepo {
                 reader.Close();
 
                 string queryString =
-                $"Insert into Osoba values ({Id},-1,{age},'{name}','{surname}');";  //po defaultu svaka nova osoba ima job_id=-1 kao nezaposlena osoba
+                $"Insert into Osoba values ({Id},-1,'{name}','{surname}',{age});";  //po defaultu svaka nova osoba ima job_id=-1 kao nezaposlena osoba
                 SqlDataAdapter adapter = new SqlDataAdapter(queryString, connection);
                 DataSet newPerson = new DataSet();  
                 adapter.Fill(newPerson, "Osoba");
@@ -51,7 +53,7 @@ namespace WebAppRepo {
 		}
 
 		public async Task<string> GetJobDescAsync(int posao_id) {
-			 SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+			 SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             string JobDesc="";
 
             using (connection) {
@@ -78,8 +80,8 @@ namespace WebAppRepo {
             return JobDesc;
 		}
 
-		public async Task<List<Osoba>> HasRowsAsync() {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+		public async Task<List<Osoba>> HasRowsAsync(Filtering filter, Sorting sorter, Paging pager) {
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             List<Osoba> popis = new List<Osoba>();
             string name = "",
             surname=""; 
@@ -91,8 +93,9 @@ namespace WebAppRepo {
             
             using (connection) {
                 SqlCommand command = new SqlCommand(
-                  "SELECT PersonName,Surname,Age,Id,PosaoId FROM Osoba;",
-                  connection);
+                            //ovi tu brojevi +1 i -1 su samo da se pravilno pomice granica da na savkoj stranici bude odredeni broj elementa i da zadnji el s prve stranice ne bude prvi na sljedecoj
+                $"WITH Ordered AS(SELECT *, ROW_NUMBER() OVER(ORDER BY {sorter.sortProperty} {sorter.sortOrder}) AS 'RowNumber'FROM Osoba where {filter.filterProperty} like '%{filter.filterCondition}%') SELECT Name,Surname,Age,Id,Posao_Id FROM Ordered WHERE RowNumber BETWEEN {pager.CurrentPage-1}*{pager.RecordsPerPage}+1 AND {pager.CurrentPage - 1}*{pager.RecordsPerPage}+{pager.RecordsPerPage};",
+                connection);
                 connection.Open();
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -125,7 +128,7 @@ namespace WebAppRepo {
         }
 
         public async Task DeleteAsync(int Id) {
-			SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+			SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
 			using (connection) {     
 
                 string queryString =
@@ -144,7 +147,7 @@ namespace WebAppRepo {
 		}
 
         public async Task EditAsync(int Id,string newName,string newSurname,int newAge) {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             string queryString;
 			using (connection) {
 
@@ -179,7 +182,7 @@ namespace WebAppRepo {
         }
 
         public async Task AddToJobAsync(int personid, int jobId) {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             string queryString;
 			using (connection) {
 
@@ -195,7 +198,7 @@ namespace WebAppRepo {
         }
 
 		public bool IDIsInDatabase(int Id,int jobId) {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             int dbID=0;
             int dbJobID = 0;
             
@@ -225,7 +228,7 @@ namespace WebAppRepo {
 		}
 
 			public bool IDIsInDatabase(int Id) {
-            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PraksaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             int dbID=0;
             
             SqlCommand command = new SqlCommand(

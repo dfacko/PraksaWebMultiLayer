@@ -1,0 +1,6 @@
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\bin\Debug\WebApp.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\bin\Debug\WebApp.Common.pdb
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\obj\Debug\WebApp.Common.csprojAssemblyReference.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\obj\Debug\WebApp.Common.csproj.CoreCompileInputs.cache
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\obj\Debug\WebApp.Common.dll
+C:\Users\Yozika\Desktop\WebApp\WebAppProjekt\WebApp.Common\obj\Debug\WebApp.Common.pdb
