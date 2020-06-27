@@ -39,7 +39,7 @@ namespace WebApp.Controllers {
              List<Osoba> listFromDb = new List<Osoba>();
              List<Task> tasks = new List<Task>();
 
-            Paging paging = new Paging(currentPage,recordsOnPage);
+            Paging paging = new Paging(recordsOnPage,currentPage);
             Filtering filter = new Filtering(filterProperty,filterCondition);
             Sorting sort = new Sorting(sortProperty,sortOrder);
 

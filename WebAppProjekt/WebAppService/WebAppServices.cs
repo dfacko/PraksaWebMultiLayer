@@ -68,7 +68,6 @@ namespace WebAppService {
 
 			
 			List<Osoba> popis = new List<Osoba>();
-
 			popis = await Repository.ReadOsobasAsync(filter,sorter,pager);
 			if (popis.Count == 0) {
 				//tu treba returnat error 

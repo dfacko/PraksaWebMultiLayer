@@ -14,6 +14,13 @@ namespace WebApp.Common
         {
             this.filterProperty = filterProperty;
             this.filterCondition = filterCondition;
+            CheckFilter();
+        }
+
+        void CheckFilter()
+        {
+            if (filterProperty == null) { filterProperty = "Name"; }
+            if (filterCondition == null) { filterCondition = ""; }
         }
     }
 

@@ -18,10 +18,11 @@ namespace WebApp.Common
             CheckSort();
         }
 
-        private void CheckSort()
+        void CheckSort()
         {
-            if (sortProperty == "") { sortProperty = "Name"; }
-            if (sortOrder == "") { sortOrder = "asc"; }
+            
+            if (sortOrder==null ) { sortOrder = "asc"; }
+            if (sortProperty ==null) { sortProperty = "Name"; }
         }
     }
 }
