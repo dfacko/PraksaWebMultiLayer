@@ -16,10 +16,10 @@ namespace WebApp.Controllers {
         protected IMapper Mapper { get; private set; }
 
 
-        public  AppController(IWebAppService service/*,Mapper mapper*/)
+        public  AppController(IWebAppService service,IMapper mapper)
         {
             this.Service = service;
-            //this.Mapper=mapper;
+            this.Mapper=mapper;
         }
 		
 
@@ -32,43 +32,29 @@ namespace WebApp.Controllers {
 
 		// GET: api/App
 		[HttpGet]
-            public async Task<IHttpActionResult> OsobeReadAsync(int currentPage=1,int recordsOnPage=3,string filterProperty="Name",string filterCondition ="",string sortOrder="asc",string sortProperty="Id")
+            public async Task<IHttpActionResult> OsobeReadAsync(int currentPage,int recordsOnPage,string filterProperty,string filterCondition ,string sortOrder,string sortProperty)
             {
 
              List<OsobaRest> popis = new List<OsobaRest>() { };
              List<Osoba> listFromDb = new List<Osoba>();
              List<Task> tasks = new List<Task>();
 
-            Paging paging = new Paging();
-            Filtering filter = new Filtering();
-            Sorting sort = new Sorting();
+            Paging paging = new Paging(currentPage,recordsOnPage);
+            Filtering filter = new Filtering(filterProperty,filterCondition);
+            Sorting sort = new Sorting(sortProperty,sortOrder);
 
-            paging.CurrentPage = currentPage;
-            paging.RecordsPerPage = recordsOnPage;
-            filter.filterCondition = filterCondition;
-            filter.filterProperty = filterProperty;
-            sort.sortOrder = sortOrder;
-            sort.sortProperty = sortProperty;
 
-            //WebAppServices person = new WebAppServices();
+
 
 
              listFromDb = await Service.ReadAsync(filter,sort,paging);
-
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Osoba, OsobaRest>();
-            });
-
-
-            IMapper iMapper = config.CreateMapper();
-
-            
           
 
             foreach (Osoba osoba in listFromDb)
             {
-                OsobaRest osobaRest = iMapper.Map<Osoba, OsobaRest>(osoba);
-                osobaRest.Job = await Service.InsertJobAsync(osoba.Posao_id);
+                OsobaRest osobaRest = Mapper.Map<Osoba, OsobaRest>(osoba);
+                osobaRest.Job = Mapper.Map<Job, JobRest>(osoba.Job);
+                //osobaRest.Job = await Service.InsertJobAsync(osoba.Posao_id);
                 popis.Add(osobaRest); 
 
                                  

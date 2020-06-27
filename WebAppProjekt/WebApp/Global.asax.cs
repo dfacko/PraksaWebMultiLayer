@@ -33,11 +33,16 @@ namespace WebApp
             containerBuilder.RegisterType<AppController>();
 
 
-            /*containerBuilder.Register(ctx => new MapperConfiguration(cfg => {
-                cfg.CreateMap<Osoba, OsobaRest>();
+            containerBuilder.RegisterType<Mapper>().As<IMapper>();
+
+
+            containerBuilder.Register(ctx => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
             }));
-            containerBuilder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<Mapper>();*/
+
+            containerBuilder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().SingleInstance();
+            
 
 
             var container = containerBuilder.Build();

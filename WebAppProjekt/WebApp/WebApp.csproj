@@ -135,6 +135,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="JobRest.cs" />
+    <Compile Include="MappingProfile.cs" />
     <Compile Include="OsobaRest.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Global.asax.cs">

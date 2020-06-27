@@ -57,19 +57,19 @@ namespace WebAppService {
 			return 0;
 		}
 
-		public async Task<string> InsertJobAsync (int posao_id) {  //gets and return job Description from db for a jobId
+		/*public async Task<string> InsertJobAsync (int posao_id) {  //gets and return job Description from db for a jobId
 			                                      //ne treba provjera jer ovo se poziva pri kreiranju Restmodela, koji se kreira iz vec postojuceg Osoba modela
 			
 			return await Repository.GetJobDescAsync(posao_id);
 			
-		}
+		}*/
 
 		public async Task<List<Osoba>> ReadAsync(Filtering filter,Sorting sorter,Paging pager) {
 
 			
 			List<Osoba> popis = new List<Osoba>();
 
-			popis = await Repository.HasRowsAsync(filter,sorter,pager);
+			popis = await Repository.ReadOsobasAsync(filter,sorter,pager);
 			if (popis.Count == 0) {
 				//tu treba returnat error 
 

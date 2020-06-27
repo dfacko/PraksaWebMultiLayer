@@ -10,5 +10,11 @@ namespace WebApp.Common
     {
         public int RecordsPerPage { get;  set; }
         public int CurrentPage { get; set; }
+
+        public Paging (int CurrentPage,int RecordsPerPage)
+        {
+            this.CurrentPage = CurrentPage;
+            this.RecordsPerPage = RecordsPerPage;
+        }
     }
 }

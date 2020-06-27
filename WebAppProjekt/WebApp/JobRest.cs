@@ -6,8 +6,7 @@ using System.Web;
 namespace WebApp {
 	public class JobRest {
 
-		int Id { get; set; }
-		string Desc { get; set; }
+		public string Desc { get; set; }
 	
 	}
 }

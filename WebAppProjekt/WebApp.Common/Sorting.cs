@@ -10,5 +10,18 @@ namespace WebApp.Common
     {
         public string sortOrder { get; set; }
         public string sortProperty {get;set;}
+
+        public Sorting(string sortProperty,string sortOrder)
+        {
+            this.sortProperty = sortProperty;
+            this.sortOrder = sortOrder;
+            CheckSort();
+        }
+
+        private void CheckSort()
+        {
+            if (sortProperty == "") { sortProperty = "Name"; }
+            if (sortOrder == "") { sortOrder = "asc"; }
+        }
     }
 }

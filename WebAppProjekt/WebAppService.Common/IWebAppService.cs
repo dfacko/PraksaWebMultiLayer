@@ -12,7 +12,7 @@ namespace WebAppService.Common {
 		 Task AddAsync(Osoba person);
 		Task<int> DeleteAsync(int Id);
 		Task<int> EditAsync(int Id, string newName, string newSurname, int newAge);
-		Task<string> InsertJobAsync(int posao_id);
+		//Task<string> InsertJobAsync(int posao_id);
 
 		Task<int> AddToJobAsync(int personid, int jobId);
 	}

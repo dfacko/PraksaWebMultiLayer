@@ -12,10 +12,6 @@ namespace WebAppRepo {
 		
 		public  async Task AddAsync(Osoba person) {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
-
-            string name = person.Name;
-            string surname = person.Surname;
-            int age = person.Age;
             int Id=0;
 
             using (connection) {
@@ -37,7 +33,7 @@ namespace WebAppRepo {
                 reader.Close();
 
                 string queryString =
-                $"Insert into Osoba values ({Id},-1,'{name}','{surname}',{age});";  //po defaultu svaka nova osoba ima job_id=-1 kao nezaposlena osoba
+                $"Insert into Osoba values ({Id},-1,'{person.Name}','{person.Surname}',{person.Age});";  //po defaultu svaka nova osoba ima job_id=-1 kao nezaposlena osoba
                 SqlDataAdapter adapter = new SqlDataAdapter(queryString, connection);
                 DataSet newPerson = new DataSet();  
                 adapter.Fill(newPerson, "Osoba");
@@ -80,21 +76,16 @@ namespace WebAppRepo {
             return JobDesc;
 		}
 
-		public async Task<List<Osoba>> HasRowsAsync(Filtering filter, Sorting sorter, Paging pager) {
+		public async Task<List<Osoba>> ReadOsobasAsync(Filtering filter, Sorting sorter, Paging pager) {
             SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Osoba;Integrated Security=True");
             List<Osoba> popis = new List<Osoba>();
-            string name = "",
-            surname=""; 
-            int age=-1;
-            int id = -1;
-            int posao_id = -1;
             Osoba person;
             
             
             using (connection) {
                 SqlCommand command = new SqlCommand(
                             //ovi tu brojevi +1 i -1 su samo da se pravilno pomice granica da na savkoj stranici bude odredeni broj elementa i da zadnji el s prve stranice ne bude prvi na sljedecoj
-                $"WITH Ordered AS(SELECT *, ROW_NUMBER() OVER(ORDER BY {sorter.sortProperty} {sorter.sortOrder}) AS 'RowNumber'FROM Osoba where {filter.filterProperty} like '%{filter.filterCondition}%') SELECT Name,Surname,Age,Id,Posao_Id FROM Ordered WHERE RowNumber BETWEEN {pager.CurrentPage-1}*{pager.RecordsPerPage}+1 AND {pager.CurrentPage - 1}*{pager.RecordsPerPage}+{pager.RecordsPerPage};",
+                $"WITH Ordered AS(SELECT *, ROW_NUMBER() OVER(ORDER BY {sorter.sortProperty} {sorter.sortOrder}) AS 'RowNumber'FROM Osoba where {filter.filterProperty} like '%{filter.filterCondition}%') SELECT p.Name,p.Surname,p.Age,p.Id,p.Posao_Id,Opis_posla FROM Ordered as p inner join Posao on Posao.Id=p.Posao_Id and RowNumber BETWEEN {pager.CurrentPage-1}*{pager.RecordsPerPage}+1 AND {pager.CurrentPage - 1}*{pager.RecordsPerPage}+{pager.RecordsPerPage};",
                 connection);
                 connection.Open();
 
@@ -104,14 +95,17 @@ namespace WebAppRepo {
   
                     while (reader.Read()) {
 
-                        name = reader.GetString(0);
-                        surname=reader.GetString(1);
-                        age = reader.GetInt32(2);
-                        id = reader.GetInt32(3);
-                        posao_id = reader.GetInt32(4);
+                        string name = reader.GetString(0);
+                        string surname=reader.GetString(1);
+                        int age = reader.GetInt32(2);
+                        int id = reader.GetInt32(3);
+                        int posao_id = reader.GetInt32(4);
+                        string jobDesc = reader.GetString(5);
                         person = new Osoba(name, surname, age);
                         person.Id = id;
                         person.Posao_id = posao_id;
+                        person.Job.Desc = jobDesc;
+                        person.Job.Id = posao_id;
                         popis.Add(person);
 
                     }

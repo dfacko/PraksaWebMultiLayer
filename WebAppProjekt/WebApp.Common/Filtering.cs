@@ -10,5 +10,12 @@ namespace WebApp.Common
     {
         public string filterProperty { get; set; }
         public string filterCondition { get; set; }
+        public Filtering(string filterProperty, string filterCondition)
+        {
+            this.filterProperty = filterProperty;
+            this.filterCondition = filterCondition;
+        }
     }
+
+  
 }

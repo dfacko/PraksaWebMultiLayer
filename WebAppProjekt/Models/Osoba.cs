@@ -14,6 +14,7 @@ namespace Models
         public string Name { get; set; }
 		public int Age { get; set; }
 		public string Surname { get; set; }
+		public Job Job { get; set; }
 
 
 		public  Osoba(string name="",string prezime="",int age=-1)
@@ -21,6 +22,7 @@ namespace Models
 			this.Name = name;
 			this.Age = age;
 			this.Surname = prezime;
+			Job = new Job();
 
 		}
     }
